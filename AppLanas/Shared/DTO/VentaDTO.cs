@@ -5,25 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppLanas.BD.Data.Entity
+namespace AppLanas.Shared.DTO
 {
-    public class Venta
+    public class VentaDTO
     {
-        public int Id { get; set; }
-
         [Required]
         public int idCaja { get; set; }
-       
+
         [Required]
         public decimal totalGanancia { get; set; }
 
-        List<Producto> Productos { get; set; }
+      // falta conexion
 
-        //Conexion Relacion de uno a muchos. Una caja tiene muchas ventas
-
-        public int cajaId { get; set; }
-
-        public Caja Caja { get; set; }
+        
 
     }
 }

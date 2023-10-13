@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppLanas.BD.Data.Entity
+namespace AppLanas.Shared.DTO
 {
-    public class Producto
+    public class ProductoDTO
     {
-        public int id { get; set; }
-
         [Required(ErrorMessage = "EL Nombre del producto debe ser OBLIGATORIO")]
         [MaxLength(40, ErrorMessage = "Solo se aceptan hasta 40 caracteres en el Nombre del Deposito")]
         public string nombreProducto { get; set; }
@@ -25,14 +23,11 @@ namespace AppLanas.BD.Data.Entity
         [Required(ErrorMessage = "El Porcentaje del Producto que se desea obtener debe ser OBLIGATORIO")]
         public decimal porcentajeGanancia { get; set; }
 
-        //conexion Relacion de uno a muchos. una venta tiene muchos productos 
+        //conexion
+        public int ventaId { get; set; }
 
-        public int ventaid {get; set; }
+ 
 
-        public Venta Venta { get; set; }
-
-
+       
     }
-
-
 }

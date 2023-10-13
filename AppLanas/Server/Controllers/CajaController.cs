@@ -1,5 +1,6 @@
 ﻿using AppLanas.BD.Data;
 using AppLanas.BD.Data.Entity;
+using AppLanas.Shared.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,67 @@ namespace AppLanas.Server.Controllers
                 return NotFound($"la caja {id} no existe");
             }
             return await context.Cajas.FirstOrDefaultAsync(caj => caj.Id == id);
+        }
+
+        [HttpPost]
+
+        public async Task<ActionResult<int>> Post(Caja entidad)
+        {
+            context.Add(entidad);
+            await context.SaveChangesAsync();
+            return Ok();
+
+            //try
+            //{
+            //    Caja nuevacaja = new Caja();
+            //    nuevacaja.Id = entidad.Id;
+            //    nuevacaja.fecha = entidad.fecha;
+
+
+            //    context.Add(nuevacaja);
+            //    await context.SaveChangesAsync();
+            //    return Ok();
+            //}
+
+            //catch (Exception e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+
+
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(Caja caja, int id)
+        {
+            if (id != caja.Id)
+            {
+                BadRequest("El id del componente no coincide.");
+            }
+            var existe = await context.Cajas.AnyAsync(x => x.Id == id);
+            if (!existe)
+            {
+                return NotFound($"El componente con el ID={id} no existe");
+            }
+
+            context.Update(caja);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var existe = await context.Cajas.AnyAsync(x => x.Id == id);
+            if (!existe)
+            {
+                return BadRequest($"La caja con el ID={id} no existe");
+            }
+
+            context.Remove(new Producto() { id = id });
+            await context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
