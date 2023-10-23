@@ -10,7 +10,7 @@ namespace AppLanas.BD.Data.Entity
     {
         public int Id { get; set; }
 
-        DateTime fecha { get; set; }
+        public DateTime fecha { get; set; }
 
         List<Venta> Ventas { get; set; }
     }

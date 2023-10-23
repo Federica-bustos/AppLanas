@@ -10,6 +10,6 @@ namespace AppLanas.Shared.DTO
     {
         public int Id { get; set; }
 
-        DateTime fecha { get; set; }
+        public DateTime fecha { get; set; }
     }
 }

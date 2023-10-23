@@ -11,8 +11,7 @@ namespace AppLanas.BD.Data.Entity
     {
         public int Id { get; set; }
 
-        [Required]
-        public int idCaja { get; set; }
+       
        
         [Required]
         public decimal totalGanancia { get; set; }
@@ -21,7 +20,8 @@ namespace AppLanas.BD.Data.Entity
 
         //Conexion Relacion de uno a muchos. Una caja tiene muchas ventas
 
-        public int cajaId { get; set; }
+        [Required]
+        public int idCaja { get; set; }
 
         public Caja Caja { get; set; }
 

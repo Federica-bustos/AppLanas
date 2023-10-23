@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AppLanas.BD\AppLanas.BD.csproj" />
     <ProjectReference Include="..\Shared\AppLanas.Shared.csproj" />
   </ItemGroup>
 

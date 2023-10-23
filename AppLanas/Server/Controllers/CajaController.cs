@@ -44,28 +44,32 @@ namespace AppLanas.Server.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<int>> Post(Caja entidad)
+        public async Task<ActionResult<int>> Post(CajaDTO entidad)
         {
-            context.Add(entidad);
-            await context.SaveChangesAsync();
-            return Ok();
+           
 
-            //try
-            //{
-            //    Caja nuevacaja = new Caja();
-            //    nuevacaja.Id = entidad.Id;
-            //    nuevacaja.fecha = entidad.fecha;
+            try
+            {
+                var existe = await context.Cajas.AnyAsync(x => x.Id == entidad.Id);
+                if (!existe)
+                {
+                    return NotFound($"La venta de id = {entidad.Id} no existe");
+                }
+
+                Caja nuevacaja = new Caja();
+                nuevacaja.Id = entidad.Id;
+                nuevacaja.fecha = entidad.fecha;
 
 
-            //    context.Add(nuevacaja);
-            //    await context.SaveChangesAsync();
-            //    return Ok();
-            //}
+                await context.AddAsync(nuevacaja);
+                await context.SaveChangesAsync();
+                return Ok("Se cargo correctamente la caja");
+            }
 
-            //catch (Exception e)
-            //{
-            //    return BadRequest(e.Message);
-            //}
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
 
 
         }
