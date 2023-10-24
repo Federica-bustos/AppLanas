@@ -21,7 +21,7 @@ namespace AppLanas.Server.Controllers
 
         public async Task<ActionResult<List<Venta>>> Get()
         {
-            var lista = await context.Ventas.ToListAsync();
+            var lista = await context.Ventas.Include(x=> x.ProductoVentas).ToListAsync();
             if (lista == null || lista.Count == 0)
             {
                 return BadRequest("no hay Ventas cargada");

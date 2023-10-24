@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,16 @@ namespace AppLanas.BD.Data.Entity
         [Required(ErrorMessage = "El Porcentaje del Producto que se desea obtener debe ser OBLIGATORIO")]
         public decimal porcentajeGanancia { get; set; }
 
-        //conexion Relacion de uno a muchos. una venta tiene muchos productos 
+        //conexion Relacion de muchos a muchos. traigo la lista de los ID venta con sus respectivos productos 
 
-        public int ventaid {get; set; }
+        //public int ventaid {get; set; }
+       // public Venta Venta {get; set;}
 
-        public Venta Venta { get; set; }
+		[InverseProperty("Producto")]
+		public List<ProductoVenta> ProductoVentas { get; set; }
 
 
-    }
+	}
 
 
 }

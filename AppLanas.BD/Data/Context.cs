@@ -16,6 +16,8 @@ namespace AppLanas.BD.Data
 
         public DbSet<Caja> Cajas => Set<Caja>();
 
+        public DbSet<ProductoVenta> ProductoVentas => Set<ProductoVenta>();
+
         public Context(DbContextOptions options) : base(options)
         {
         }

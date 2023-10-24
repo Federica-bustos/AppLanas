@@ -12,6 +12,6 @@ namespace AppLanas.BD.Data.Entity
 
         public DateTime fecha { get; set; }
 
-        List<Venta> Ventas { get; set; }
+        public List<Venta> Ventas { get; set; }
     }
 }

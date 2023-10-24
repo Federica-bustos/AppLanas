@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace AppLanas.BD.Data.Entity
         [Required]
         public decimal totalGanancia { get; set; }
 
-        List<Producto> Productos { get; set; }
+        //public List<Producto> Productos { get; set; }
 
         //Conexion Relacion de uno a muchos. Una caja tiene muchas ventas
 
@@ -24,6 +25,10 @@ namespace AppLanas.BD.Data.Entity
         public int idCaja { get; set; }
 
         public Caja Caja { get; set; }
+
+		[InverseProperty("Venta")]
+		public List<ProductoVenta> ProductoVentas { get; set; } 
+        
 
     }
 }

@@ -47,17 +47,16 @@ namespace AppLanas.Server.Controllers
         {
             try
             {
-                var existe = await context.Ventas.AnyAsync(x => x.Id == entidad.ventaId);
-                if (!existe)
+				var existe = await context.Productos.FirstOrDefaultAsync(x => x.nombreProducto == entidad.nombreProducto);
+                if (existe != null)
                 {
-                    return NotFound($"La venta de id = {entidad.ventaId} no existe");
+                    return NotFound($"Este producto ya existe");
                 }
 
                 Producto nuevoproducto = new Producto();
-
-                nuevoproducto.ventaid = entidad.ventaId;
+   
                 nuevoproducto.nombreProducto = entidad.nombreProducto;
-                nuevoproducto.precioProducto = entidad.precioProducto;
+                nuevoproducto.precioProducto = entidad.precioProveedor + (entidad.precioProveedor * entidad.porcentajeGanancia/100);
                 nuevoproducto.precioProveedor = entidad.precioProveedor;
                 nuevoproducto.porcentajeGanancia = entidad.porcentajeGanancia;
 

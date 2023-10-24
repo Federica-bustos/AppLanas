@@ -15,7 +15,9 @@ namespace AppLanas.Shared.DTO
         [Required]
         public decimal totalGanancia { get; set; }
 
-      // falta conexion
+      // falta id de productos a vender 
+
+
 
         
 
