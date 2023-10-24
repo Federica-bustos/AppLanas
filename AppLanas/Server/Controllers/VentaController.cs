@@ -60,15 +60,21 @@ namespace AppLanas.Server.Controllers
                 nuevaventa.idCaja = entidad.idCaja;
                 nuevaventa.totalGanancia = entidad.totalGanancia;
 
-                await context.AddAsync(nuevaventa);
+				await context.AddAsync(nuevaventa);
                 await context.SaveChangesAsync();
-                return Ok("Se cargo la venta correctamente");
-            }
+				//hacer foreach de entidad.listaproductos /crear) en la que por cada vuelta creas un registro
+                //de productoventa e inserto el ID venta (58) y el ID del producto que quiero vender.
 
-            catch (Exception e)
+
+				return Ok("Se cargo la venta correctamente");
+
+			}
+
+			catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
+
           
         }
 
