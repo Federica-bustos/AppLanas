@@ -66,7 +66,7 @@
 
 	private async Task Leer()
 	{
-		var respuesta = await http.Get<List<Producto>>("api/Prodyctos");
+		var respuesta = await http.Get<List<Producto>>("api/Producto");
 		if(!respuesta.Error)
 		{
 			productos = respuesta.Respuesta;

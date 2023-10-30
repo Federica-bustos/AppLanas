@@ -17,9 +17,13 @@ namespace AppLanas.Shared.DTO
 
       // falta id de productos a vender 
 
-
-
-        
-
+        public List<ProductoId> ListaProducto {  get; set; }
     }
+
+    public class ProductoId
+    {
+        public int Id { get; set; }
+    }
+
+
 }

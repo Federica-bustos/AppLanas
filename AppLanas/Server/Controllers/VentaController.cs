@@ -62,8 +62,19 @@ namespace AppLanas.Server.Controllers
 
 				await context.AddAsync(nuevaventa);
                 await context.SaveChangesAsync();
-				//hacer foreach de entidad.listaproductos /crear) en la que por cada vuelta creas un registro
-                //de productoventa e inserto el ID venta (58) y el ID del producto que quiero vender.
+
+
+                entidad.ListaProducto.ForEach(async x =>
+                {
+                    var newProductoVenta = new ProductoVenta
+                    {
+                        VentaId = nuevaventa.Id,
+                        ProductoId = x.Id   
+                    };
+
+                    await context.AddAsync(newProductoVenta);
+                    await context.SaveChangesAsync();
+                });
 
 
 				return Ok("Se cargo la venta correctamente");
@@ -74,7 +85,7 @@ namespace AppLanas.Server.Controllers
             {
                 return BadRequest(e.Message);
             }
-
+   
           
         }
 
