@@ -27,6 +27,7 @@
 
 	<br />
 	<button class="btn btn-primary" type="submit">Aceptar</button>
+	<button class="btn btn-secondary" @onclick="onCancel">Cancelar</button>
 
 
 
@@ -36,4 +37,5 @@
 @code {
 	[Parameter] public Producto producto { get; set; } = new Producto();
 	[Parameter] public EventCallback onValidSubbmit { get; set; }
+	[Parameter] public EventCallback onCancel { get; set; }
 }

@@ -20,9 +20,9 @@ namespace AppLanas.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Producto>>> Get()
         {
-            var lista = await context.Productos.ToListAsync();
-            if (lista == null || lista.Count == 0)
-            {
+			var lista = await context.Productos.ToListAsync();
+			if (lista is null)
+			{
                 return BadRequest("no hay Producto cargado");
             }
 
@@ -45,52 +45,96 @@ namespace AppLanas.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post(ProductoDTO entidad)
         {
-            try
-            {
-				var existe = await context.Productos.FirstOrDefaultAsync(x => x.nombreProducto == entidad.nombreProducto);
-                if (existe != null)
-                {
-                    return NotFound($"Este producto ya existe");
-                }
+			var existe = await context.Productos.FirstOrDefaultAsync(x => x.nombreProducto == entidad.nombreProducto);
+			if (existe != null)
+			{
+				return NotFound($"Este producto ya existe");
+			}
+			try
+			{
 
-                Producto nuevoproducto = new Producto();
-   
-                nuevoproducto.nombreProducto = entidad.nombreProducto;
-                nuevoproducto.precioProducto = entidad.precioProveedor + (entidad.precioProveedor * entidad.porcentajeGanancia/100);
-                nuevoproducto.precioProveedor = entidad.precioProveedor;
-                nuevoproducto.porcentajeGanancia = entidad.porcentajeGanancia;
 
-                await context.AddAsync(nuevoproducto);
-                await context.SaveChangesAsync();
-                return Ok("Se cargo correctamente el Producto.");
-            }
 
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+				Producto nuevoproducto = new Producto();
+
+				nuevoproducto.nombreProducto = entidad.nombreProducto;
+				nuevoproducto.precioProducto = entidad.precioProveedor + (entidad.precioProveedor * entidad.porcentajeGanancia / 100);
+				nuevoproducto.precioProveedor = entidad.precioProveedor;
+				nuevoproducto.porcentajeGanancia = entidad.porcentajeGanancia;
+
+				await context.AddAsync(nuevoproducto);
+				await context.SaveChangesAsync();
+				return Ok("Se cargo correctamente el Producto.");
+			}
+			//        try
+			//        {
+			//var existe = await context.Productos.FirstOrDefaultAsync(x => x.nombreProducto == entidad.nombreProducto);
+			//            if (existe != null)
+			//            {
+			//                return NotFound($"Este producto ya existe");
+			//            }
+
+			//            Producto nuevoproducto = new Producto();
+
+			//            nuevoproducto.nombreProducto = entidad.nombreProducto;
+			//            nuevoproducto.precioProducto = entidad.precioProveedor + (entidad.precioProveedor * entidad.porcentajeGanancia/100);
+			//            nuevoproducto.precioProveedor = entidad.precioProveedor;
+			//            nuevoproducto.porcentajeGanancia = entidad.porcentajeGanancia;
+
+			//            await context.AddAsync(nuevoproducto);
+			//            await context.SaveChangesAsync();
+			//            return Ok("Se cargo correctamente el Producto.");
+			//        }
+
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
         }
 
         [HttpPut("{id:int}")]
 
-        public async Task<ActionResult> Put(Producto producto, int id)
+        public async Task<ActionResult> Put(ProductoDTO productoDTO, int id)
         {
-            if (id != producto.id)
-            {
-                BadRequest("El id de producto no coincide.");
-            }
-            var existe = await context.Productos.AnyAsync(x => x.id == id);
-            if (!existe)
-            {
-                return NotFound($"El producto con el ID={id} no existe");
-            }
+			try
+			{
+				var producto = await context.Productos.FirstOrDefaultAsync(e => e.id == id);
+				if (producto != null)
+				{
+					producto.nombreProducto = productoDTO.nombreProducto;
+					producto.precioProveedor = productoDTO.precioProveedor;
+					producto.precioProducto = productoDTO.precioProveedor + (productoDTO.precioProveedor * productoDTO.porcentajeGanancia / 100);
+					producto.porcentajeGanancia = productoDTO.porcentajeGanancia;
+					await context.SaveChangesAsync();
 
-            context.Update(producto);
-            await context.SaveChangesAsync();
-            return Ok();
-        }
+				}
+				else
+				{
+					return NotFound($"El producto de id={id} no existe");
+				}
+			}
+			catch (Exception ex)
+			{
+				return NotFound($"Error al intentar editar el producto");
 
-        [HttpDelete]
+			}
+			return Ok();
+			//if (id != producto.id)
+			//{
+			//    BadRequest("El id de producto no coincide.");
+			//}
+			//var existe = await context.Productos.AnyAsync(x => x.id == id);
+			//if (!existe)
+			//{
+			//    return NotFound($"El producto con el ID={id} no existe");
+			//}
+
+			//context.Update(producto);
+			//await context.SaveChangesAsync();
+			//return Ok();
+		}
+
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
             var existe = await context.Productos.AnyAsync(x => x.id == id);

@@ -17,7 +17,7 @@ namespace AppLanas.BD.Data.Entity
         public string nombreProducto { get; set; }
 
         [Required(ErrorMessage = "EL Precio del Producto debe ser OBLIGATORIO")]
-        [MaxLength(40, ErrorMessage = "Solo se aceptan hasta 10 caracteres en el Precio del Producto")]
+        //[MaxLength(40, ErrorMessage = "Solo se aceptan hasta 10 caracteres en el Precio del Producto")]
         public decimal precioProducto { get; set; }
 
         [Required(ErrorMessage = "El Precio del Producto comprado a proveedores debe ser OBLIGATORIO")]
