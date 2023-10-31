@@ -66,25 +66,7 @@ namespace AppLanas.Server.Controllers
 				await context.SaveChangesAsync();
 				return Ok("Se cargo correctamente el Producto.");
 			}
-			//        try
-			//        {
-			//var existe = await context.Productos.FirstOrDefaultAsync(x => x.nombreProducto == entidad.nombreProducto);
-			//            if (existe != null)
-			//            {
-			//                return NotFound($"Este producto ya existe");
-			//            }
-
-			//            Producto nuevoproducto = new Producto();
-
-			//            nuevoproducto.nombreProducto = entidad.nombreProducto;
-			//            nuevoproducto.precioProducto = entidad.precioProveedor + (entidad.precioProveedor * entidad.porcentajeGanancia/100);
-			//            nuevoproducto.precioProveedor = entidad.precioProveedor;
-			//            nuevoproducto.porcentajeGanancia = entidad.porcentajeGanancia;
-
-			//            await context.AddAsync(nuevoproducto);
-			//            await context.SaveChangesAsync();
-			//            return Ok("Se cargo correctamente el Producto.");
-			//        }
+	
 
 			catch (Exception e)
 			{
